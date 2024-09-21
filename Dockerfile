@@ -27,8 +27,9 @@ RUN git clone --recursive https://github.com/UpsilonNumworks/Upsilon.git && \
 # Stage 2: Serve the built files using nginx
 FROM nginx:alpine
 
-# Copy the built files from the builder stage
-COPY --from=builder /Upsilon/output/release/simulator/web/ /usr/share/nginx/html/
+# Copy the built files from the build stage
+ARG BUILT_FILES
+COPY ${BUILT_FILES}/ /usr/share/nginx/html/
 
 # Copy custom nginx configuration
 COPY nginx.conf /etc/nginx/nginx.conf
